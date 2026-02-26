@@ -1,0 +1,38 @@
+project: my-app
+base: HEAD
+timeout: 120
+
+tasks:
+  - name: fix-type-error
+    prompt: "Fix the TypeScript type error in src/auth/login.ts"
+    validate: "npx tsc --noEmit"
+
+  - name: add-pagination
+    prompt: "Add offset/limit pagination to GET /api/users endpoint"
+    validate: "bun test test/api/users.test.ts"
+    timeout: 180
+
+  - name: write-tests
+    prompt: "Write unit tests for src/payments/charge.ts achieving >80% coverage"
+    validate: "bun test test/payments/"
+
+agents:
+  # With patterns — extracts tokens and cost from output
+  - name: claude-code
+    command: "claude --print --max-turns 10 '{prompt}'"
+    patterns:
+      tokens_in: "input tokens:\\s*([\\d,]+)"
+      tokens_out: "output tokens:\\s*([\\d,]+)"
+      cost: "cost:\\s*\\$?([\\d.]+)"
+
+  # Different agent, different output format, same yaml
+  - name: aider
+    command: "aider --message '{prompt}' --yes-always --no-git"
+    patterns:
+      tokens_in: "sent:\\s*([\\d,]+)"
+      tokens_out: "received:\\s*([\\d,]+)"
+      cost: "Cost:\\s*\\$([\\d.]+)"
+
+  # No patterns — still measures time + pass/fail
+  - name: codex
+    command: "codex --quiet '{prompt}'"

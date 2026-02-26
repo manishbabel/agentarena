@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentrace"
+version = "0.1.0"
+description = "Benchmark AI coding agents on your own codebase"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "Manish Babel", email = "manishbabel@users.noreply.github.com" },
+]
+keywords = ["benchmark", "ai", "coding-agents", "cli", "devtools"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = [
+    "click>=8.1",
+    "rich>=13.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/manishbabel/agentrace"
+Repository = "https://github.com/manishbabel/agentrace"
+Issues = "https://github.com/manishbabel/agentrace/issues"
+
+[project.scripts]
+agentrace = "agentrace.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentrace"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
