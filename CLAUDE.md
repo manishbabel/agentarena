@@ -1,10 +1,10 @@
-# agentrace — Project Guide
+# agentarena — Project Guide
 
 ## What Is This?
 An open-source Python CLI to benchmark AI coding agents (Claude Code, Aider, Codex, etc.) on YOUR codebase with YOUR tasks. Produces terminal comparison reports (pass/fail, time, cost, tokens, LLM calls). "The Hyperfine of AI coding agents."
 
-**Repo:** https://github.com/manishbabel/agentrace
-**PyPI name:** `agentrace` (`pip install agentrace`)
+**Repo:** https://github.com/manishbabel/agentarena
+**PyPI name:** `agentarena` (`pip install agentarena`)
 
 ## Full Plan
 See `plan.md` for complete architecture, research foundation, viral strategy, and roadmap.
@@ -12,13 +12,13 @@ See `plan.md` for complete architecture, research foundation, viral strategy, an
 ## Tech Stack
 - Python 3.11+, click (CLI), rich (terminal UI), pyyaml (config), uv (package manager), pytest (testing), hatch (build/publish)
 - Isolation via `git worktree` (subprocess)
-- No LLM calls in agentrace itself — pure orchestration
+- No LLM calls in agentarena itself — pure orchestration
 
 ## Project Structure
 ```
-agentrace/
+agentarena/
 ├── pyproject.toml
-├── src/agentrace/
+├── src/agentarena/
 │   ├── __init__.py
 │   ├── cli.py              # CLI entry point (click)
 │   ├── config.py            # Parse bench.yaml (pydantic models)
@@ -53,14 +53,14 @@ agentrace/
 9. Aider adapter → `agents/aider.py`
 10. Codex adapter → `agents/codex.py`
 11. Full metrics collection: time, tokens, cost, LLM calls, pass/fail
-12. Run history storage → `.agentrace/runs/*.json`
+12. Run history storage → `.agentarena/runs/*.json`
 
 ### Phase 3 — Terminal Output + Polish (Week 3)
 13. Rich reporter: per-task results table → `reporter.py`
 14. Rich reporter: summary table with winner
 15. JSON/CSV/Markdown export
-16. `agentrace init` command
-17. `agentrace history` command
+16. `agentarena init` command
+17. `agentarena history` command
 18. Error handling: agent timeout, crash recovery, partial results
 19. Parallel task execution (optional)
 
@@ -68,7 +68,7 @@ agentrace/
 20. README with hero GIF
 21. Example bench.yaml files for common stacks
 22. Blog post with real benchmark data
-23. PyPI publish (`pip install agentrace`)
+23. PyPI publish (`pip install agentarena`)
 24. Submit to HN, Reddit, Twitter
 
 ## Key Design Rules
@@ -76,7 +76,7 @@ agentrace/
 - **Git worktrees** for isolation — clean copy per run, automatic cleanup
 - **Validation is user-defined** — shell command, pass = exit code 0
 - **Metrics from stdout parsing** — each adapter extracts tokens/cost from agent output
-- **Zero AI cost** to run agentrace itself
+- **Zero AI cost** to run agentarena itself
 
 ## Config Format
 Tasks + agents defined in `bench.yaml` at repo root. See `plan.md` for full schema.

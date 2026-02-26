@@ -1,5 +1,5 @@
-# agentrace config — React / Next.js project
-# Usage: agentrace run --config examples/react-nextjs.yaml
+# agentarena config — React / Next.js project
+# Usage: agentarena run --config examples/react-nextjs.yaml
 
 project: my-nextjs-app
 timeout: 150

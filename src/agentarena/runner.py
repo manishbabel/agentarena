@@ -16,13 +16,13 @@ from pathlib import Path
 
 from rich.console import Console
 
-from agentrace.agents.base import Agent
-from agentrace.config import AgentConfig, BenchConfig, TaskConfig
-from agentrace.history import save_run
-from agentrace.metrics import RunMetrics, TaskSummary, Timer
-from agentrace.reporter import print_header, print_task_result, print_summary
-from agentrace.sandbox import create_sandbox, cleanup_sandbox
-from agentrace.validator import run_validation
+from agentarena.agents.base import Agent
+from agentarena.config import AgentConfig, BenchConfig, TaskConfig
+from agentarena.history import save_run
+from agentarena.metrics import RunMetrics, TaskSummary, Timer
+from agentarena.reporter import print_header, print_task_result, print_summary
+from agentarena.sandbox import create_sandbox, cleanup_sandbox
+from agentarena.validator import run_validation
 
 
 console = Console()

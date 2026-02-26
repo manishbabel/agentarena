@@ -1,5 +1,5 @@
-# agentrace config — Go project
-# Usage: agentrace run --config examples/go.yaml
+# agentarena config — Go project
+# Usage: agentarena run --config examples/go.yaml
 
 project: my-go-service
 timeout: 120

@@ -5,8 +5,8 @@ from pathlib import Path
 import subprocess
 import pytest
 
-from agentrace.config import AgentConfig, BenchConfig, TaskConfig
-from agentrace.runner import run_benchmark, _run_single, _build_agent
+from agentarena.config import AgentConfig, BenchConfig, TaskConfig
+from agentarena.runner import run_benchmark, _run_single, _build_agent
 
 
 @pytest.fixture
@@ -104,7 +104,7 @@ class TestRunSingle:
         _run_single(agent, task, git_repo, global_timeout=30, base_ref="HEAD")
 
         # Check no leftover worktrees
-        worktree_dir = git_repo / ".agentrace" / "worktrees"
+        worktree_dir = git_repo / ".agentarena" / "worktrees"
         if worktree_dir.exists():
             remaining = list(worktree_dir.iterdir())
             assert len(remaining) == 0

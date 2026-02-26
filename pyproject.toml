@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "agentrace"
+name = "agentarena"
 version = "0.1.0"
 description = "Benchmark AI coding agents on your own codebase"
 readme = "README.md"
@@ -38,15 +38,15 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/manishbabel/agentrace"
-Repository = "https://github.com/manishbabel/agentrace"
-Issues = "https://github.com/manishbabel/agentrace/issues"
+Homepage = "https://github.com/manishbabel/agentarena"
+Repository = "https://github.com/manishbabel/agentarena"
+Issues = "https://github.com/manishbabel/agentarena/issues"
 
 [project.scripts]
-agentrace = "agentrace.cli:main"
+agentarena = "agentarena.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/agentrace"]
+packages = ["src/agentarena"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

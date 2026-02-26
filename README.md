@@ -1,16 +1,16 @@
-# agentrace
+# agentarena
 
 > Race your AI agents. Any agent, any task, your data.
 
-[![CI](https://github.com/manishbabel/agentrace/actions/workflows/ci.yml/badge.svg)](https://github.com/manishbabel/agentrace/actions/workflows/ci.yml)
-[![PyPI version](https://img.shields.io/pypi/v/agentrace.svg)](https://pypi.org/project/agentrace/)
+[![CI](https://github.com/manishbabel/agentarena/actions/workflows/ci.yml/badge.svg)](https://github.com/manishbabel/agentarena/actions/workflows/ci.yml)
+[![PyPI version](https://img.shields.io/pypi/v/agentarena.svg)](https://pypi.org/project/agentarena/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ```
-$ agentrace run
+$ agentarena run
 
- agentrace v0.1.0 — racing 3 agents on 3 tasks
+ agentarena v0.1.0 — racing 3 agents on 3 tasks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  Task 1/3: fix-type-error
@@ -30,13 +30,13 @@ $ agentrace run
  Winner: claude-code (highest pass rate, lowest cost)
 ```
 
-## Why agentrace?
+## Why agentarena?
 
 Every company building AI is asking the same question: **which agent actually works best?**
 
 Today that answer is opinions, blog posts, and vibes. Your manager asks for a POC — you spend two weeks manually testing three tools and write a Google Doc that says "I think Claude was better."
 
-**agentrace gives you hard numbers in 30 minutes:**
+**agentarena gives you hard numbers in 30 minutes:**
 
 | Who you are | What you get |
 |---|---|
@@ -45,12 +45,12 @@ Today that answer is opinions, blog posts, and vibes. Your manager asks for a PO
 | **Agent builder** | Prove your agent beats competitors with reproducible benchmarks |
 | **Company evaluating vendors** | Compare digital workers on your actual workload |
 
-Inspired by the [ActionEngine paper](https://arxiv.org/abs/2602.20502) which found **11.8x cost differences** and **5.67x token usage variance** between agent architectures on identical tasks. agentrace makes these differences visible on your own data.
+Inspired by the [ActionEngine paper](https://arxiv.org/abs/2602.20502) which found **11.8x cost differences** and **5.67x token usage variance** between agent architectures on identical tasks. agentarena makes these differences visible on your own data.
 
 ## Install
 
 ```bash
-pip install agentrace
+pip install agentarena
 ```
 
 ## Quick Start
@@ -58,7 +58,7 @@ pip install agentrace
 **1. Create a `bench.yaml` in your project:**
 
 ```bash
-agentrace init
+agentarena init
 ```
 
 **2. Define your tasks and agents:**
@@ -94,7 +94,7 @@ agents:
 **3. Run the race:**
 
 ```bash
-agentrace run
+agentarena run
 ```
 
 ## How It Works
@@ -112,19 +112,19 @@ Works with **any project** — git repos, plain directories, any language, any d
 ## CLI
 
 ```bash
-agentrace run                          # Race all agents on all tasks
-agentrace run --task fix-type-error    # Run specific task
-agentrace run --agent claude-code      # Run specific agent
-agentrace run --json                   # Export as JSON
-agentrace run --csv                    # Export as CSV
-agentrace run --md                     # Export as Markdown
-agentrace init                         # Create starter bench.yaml
-agentrace history                      # List past runs
+agentarena run                          # Race all agents on all tasks
+agentarena run --task fix-type-error    # Run specific task
+agentarena run --agent claude-code      # Run specific agent
+agentarena run --json                   # Export as JSON
+agentarena run --csv                    # Export as CSV
+agentarena run --md                     # Export as Markdown
+agentarena init                         # Create starter bench.yaml
+agentarena history                      # List past runs
 ```
 
 ## Metric Extraction
 
-agentrace uses **regex patterns** defined in your config to extract metrics from agent output. No code changes needed for new agents:
+agentarena uses **regex patterns** defined in your config to extract metrics from agent output. No code changes needed for new agents:
 
 ```yaml
 agents:
@@ -137,7 +137,7 @@ agents:
       llm_calls: "(\\d+) API calls"
 ```
 
-No patterns? agentrace still measures **wall time** and **pass/fail** — works for any tool.
+No patterns? agentarena still measures **wall time** and **pass/fail** — works for any tool.
 
 ## Examples
 

@@ -1,5 +1,5 @@
-# agentrace config — Node.js / TypeScript project
-# Usage: agentrace run --config examples/node-typescript.yaml
+# agentarena config — Node.js / TypeScript project
+# Usage: agentarena run --config examples/node-typescript.yaml
 
 project: my-ts-app
 timeout: 120

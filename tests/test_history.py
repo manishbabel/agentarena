@@ -3,8 +3,8 @@
 import json
 from pathlib import Path
 
-from agentrace.history import save_run, HISTORY_DIR
-from agentrace.metrics import RunMetrics, TaskSummary
+from agentarena.history import save_run, HISTORY_DIR
+from agentarena.metrics import RunMetrics, TaskSummary
 
 
 class TestSaveRun:

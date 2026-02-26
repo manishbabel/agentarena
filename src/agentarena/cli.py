@@ -1,8 +1,8 @@
-"""CLI entry point for agentrace.
+"""CLI entry point for agentarena.
 
 Commands:
-    agentrace run      Run the benchmark (reads bench.yaml)
-    agentrace init     Create a starter bench.yaml in current directory
+    agentarena run      Run the benchmark (reads bench.yaml)
+    agentarena init     Create a starter bench.yaml in current directory
 """
 
 from __future__ import annotations
@@ -12,16 +12,16 @@ from pathlib import Path
 import click
 from rich.console import Console
 
-from agentrace.config import BenchConfig, load_config, parse_agent_flag
-from agentrace.reporter import to_json, to_csv, to_markdown
-from agentrace.metrics import TaskSummary
-from agentrace.runner import run_benchmark, _build_summaries
+from agentarena.config import BenchConfig, load_config, parse_agent_flag
+from agentarena.reporter import to_json, to_csv, to_markdown
+from agentarena.metrics import TaskSummary
+from agentarena.runner import run_benchmark, _build_summaries
 
 console = Console()
 
 SAMPLE_BENCH_YAML = """\
-# agentrace benchmark config
-# Docs: https://github.com/manishbabel/agentrace
+# agentarena benchmark config
+# Docs: https://github.com/manishbabel/agentarena
 
 project: my-project
 timeout: 120
@@ -62,7 +62,7 @@ agents:
 @click.group()
 @click.version_option()
 def main():
-    """agentrace — Race your AI agents. Any agent, any task, your data."""
+    """agentarena — Race your AI agents. Any agent, any task, your data."""
 
 
 @main.command()
@@ -110,7 +110,7 @@ def run(
     except FileNotFoundError:
         console.print(
             f"[red]Error:[/red] Config file not found: {config_path}\n"
-            f"Run [bold]agentrace init[/bold] to create one."
+            f"Run [bold]agentarena init[/bold] to create one."
         )
         raise SystemExit(1)
     except Exception as e:
@@ -168,7 +168,7 @@ def run(
 
 def _build_agent_stub(agent_config):
     """Lightweight agent object just for summary grouping."""
-    from agentrace.agents.base import Agent
+    from agentarena.agents.base import Agent
     return Agent(
         name=agent_config.name,
         command_template=agent_config.command,
@@ -194,13 +194,13 @@ def init(output: str):
 
     path.write_text(SAMPLE_BENCH_YAML)
     console.print(f"[green]Created {path}[/green]")
-    console.print(f"Edit it with your tasks and agents, then run: [bold]agentrace run[/bold]")
+    console.print(f"Edit it with your tasks and agents, then run: [bold]agentarena run[/bold]")
 
 
 @main.command()
 def history():
     """List past benchmark runs."""
-    from agentrace.history import list_runs
+    from agentarena.history import list_runs
     list_runs(Path.cwd())
 
 

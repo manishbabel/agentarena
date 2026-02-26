@@ -19,7 +19,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from agentrace.metrics import RunMetrics, TaskSummary
+from agentarena.metrics import RunMetrics, TaskSummary
 
 
 console = Console()
@@ -154,11 +154,11 @@ def _pick_winner(summaries: list[TaskSummary]) -> TaskSummary | None:
 
 
 def print_header(project: str, num_agents: int, num_tasks: int) -> None:
-    """Print the agentrace banner at the start of a run."""
+    """Print the agentarena banner at the start of a run."""
     console.print()
     console.print(
         Panel(
-            f"[bold]agentrace[/bold] v0.1.0 — racing "
+            f"[bold]agentarena[/bold] v0.1.0 — racing "
             f"[cyan]{num_agents}[/cyan] agents on "
             f"[cyan]{num_tasks}[/cyan] tasks\n"
             f"project: [dim]{project}[/dim]",

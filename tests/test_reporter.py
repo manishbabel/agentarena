@@ -2,8 +2,8 @@
 
 import json
 
-from agentrace.metrics import RunMetrics, TaskSummary
-from agentrace.reporter import (
+from agentarena.metrics import RunMetrics, TaskSummary
+from agentarena.reporter import (
     _format_time,
     _format_tokens,
     _format_cost,

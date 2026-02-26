@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from agentrace.validator import run_validation
+from agentarena.validator import run_validation
 
 
 class TestRunValidation:

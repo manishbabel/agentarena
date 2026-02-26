@@ -2,7 +2,7 @@
 
 import time
 
-from agentrace.metrics import RunMetrics, TaskSummary, Timer
+from agentarena.metrics import RunMetrics, TaskSummary, Timer
 
 
 class TestRunMetrics:

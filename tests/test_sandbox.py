@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 import subprocess
 
-from agentrace.sandbox import (
+from agentarena.sandbox import (
     create_sandbox,
     cleanup_sandbox,
     is_git_repo,
@@ -127,5 +127,5 @@ class TestTempDirSandbox:
         assert not sb.exists()
 
     def test_cleanup_nonexistent_is_noop(self, plain_dir: Path):
-        fake = plain_dir / ".agentrace" / "worktrees" / "run-fake"
+        fake = plain_dir / ".agentarena" / "worktrees" / "run-fake"
         cleanup_sandbox(plain_dir, fake)  # should not raise

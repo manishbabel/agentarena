@@ -1,4 +1,4 @@
-# Contributing to agentrace
+# Contributing to agentarena
 
 Thanks for your interest in contributing! Here's how to get started.
 
@@ -6,8 +6,8 @@ Thanks for your interest in contributing! Here's how to get started.
 
 ```bash
 # Clone the repo
-git clone https://github.com/manishbabel/agentrace.git
-cd agentrace
+git clone https://github.com/manishbabel/agentarena.git
+cd agentarena
 
 # Create a virtual environment and install dependencies
 uv venv && source .venv/bin/activate
@@ -28,7 +28,7 @@ pytest
 
 ## Adding a New Agent Adapter
 
-1. Create a new file in `src/agentrace/agents/` (e.g., `my_agent.py`)
+1. Create a new file in `src/agentarena/agents/` (e.g., `my_agent.py`)
 2. Subclass `BaseAgent` from `agents/base.py`
 3. Implement `build_command()` and `parse_output()` methods
 4. Add tests in `tests/`

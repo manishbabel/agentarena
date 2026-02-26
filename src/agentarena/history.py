@@ -1,6 +1,6 @@
 """Run history — save and list past benchmark results.
 
-Each run is saved as a JSON file in .agentrace/runs/.
+Each run is saved as a JSON file in .agentarena/runs/.
 Users can compare how agents perform over time.
 """
 
@@ -14,9 +14,9 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from agentrace.metrics import RunMetrics, TaskSummary
+from agentarena.metrics import RunMetrics, TaskSummary
 
-HISTORY_DIR = ".agentrace/runs"
+HISTORY_DIR = ".agentarena/runs"
 
 console = Console()
 
@@ -27,7 +27,7 @@ def save_run(
     all_runs: list[RunMetrics],
     summaries: list[TaskSummary],
 ) -> Path:
-    """Save a benchmark run to .agentrace/runs/<timestamp>.json.
+    """Save a benchmark run to .agentarena/runs/<timestamp>.json.
 
     Returns the path to the saved file.
     """
@@ -74,13 +74,13 @@ def list_runs(project_path: Path) -> None:
     history_dir = project_path / HISTORY_DIR
 
     if not history_dir.exists():
-        console.print("[dim]No runs yet. Run [bold]agentrace run[/bold] first.[/dim]")
+        console.print("[dim]No runs yet. Run [bold]agentarena run[/bold] first.[/dim]")
         return
 
     files = sorted(history_dir.glob("*.json"), reverse=True)
 
     if not files:
-        console.print("[dim]No runs yet. Run [bold]agentrace run[/bold] first.[/dim]")
+        console.print("[dim]No runs yet. Run [bold]agentarena run[/bold] first.[/dim]")
         return
 
     table = Table(show_header=True, title="Past Runs")

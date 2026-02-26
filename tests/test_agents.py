@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from agentrace.agents.base import Agent, AgentResult
-from agentrace.config import MetricPatterns
+from agentarena.agents.base import Agent, AgentResult
+from agentarena.config import MetricPatterns
 
 
 # --- Running agents ---

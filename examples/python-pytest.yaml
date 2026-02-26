@@ -1,5 +1,5 @@
-# agentrace config — Python project with pytest
-# Usage: agentrace run --config examples/python-pytest.yaml
+# agentarena config — Python project with pytest
+# Usage: agentarena run --config examples/python-pytest.yaml
 
 project: my-python-app
 timeout: 120

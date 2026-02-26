@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from agentrace.config import (
+from agentarena.config import (
     AgentConfig,
     BenchConfig,
     TaskConfig,

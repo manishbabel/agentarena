@@ -21,8 +21,8 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-from agentrace.config import MetricPatterns
-from agentrace.metrics import Timer
+from agentarena.config import MetricPatterns
+from agentarena.metrics import Timer
 
 
 @dataclass

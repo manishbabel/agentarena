@@ -29,8 +29,8 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# agentrace run artifacts
-.agentrace/
+# agentarena run artifacts
+.agentarena/
 
 # Environment
 .env

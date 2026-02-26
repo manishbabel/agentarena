@@ -16,7 +16,7 @@ import uuid
 from pathlib import Path
 
 
-WORKTREE_DIR = ".agentrace/worktrees"
+WORKTREE_DIR = ".agentarena/worktrees"
 
 
 def _run_git(args: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
@@ -123,7 +123,7 @@ def _create_temp_copy(project_path: Path) -> Path:
         project_path,
         sandbox_path,
         ignore=shutil.ignore_patterns(
-            ".git", ".agentrace", ".venv", "venv", "__pycache__", "node_modules",
+            ".git", ".agentarena", ".venv", "venv", "__pycache__", "node_modules",
         ),
     )
 
