@@ -1,0 +1,38 @@
+# agentrace config — Node.js / TypeScript project
+# Usage: agentrace run --config examples/node-typescript.yaml
+
+project: my-ts-app
+timeout: 120
+
+tasks:
+  - name: fix-type-error
+    prompt: "Fix all TypeScript type errors in src/auth/login.ts"
+    validate: "npx tsc --noEmit"
+
+  - name: add-pagination
+    prompt: "Add offset/limit pagination to the GET /api/users endpoint in src/routes/users.ts"
+    validate: "npm test -- --testPathPattern=users"
+    timeout: 180
+
+  - name: add-validation
+    prompt: "Add zod input validation to the POST /api/signup endpoint. Validate email format and password length >= 8"
+    validate: "npm test -- --testPathPattern=signup"
+
+  - name: fix-eslint
+    prompt: "Fix all ESLint errors in src/utils/"
+    validate: "npx eslint src/utils/ --max-warnings 0"
+
+agents:
+  - name: claude-code
+    command: "claude --print --max-turns 10 '{prompt}'"
+    patterns:
+      tokens_in: "input tokens:\\s*([\\d,]+)"
+      tokens_out: "output tokens:\\s*([\\d,]+)"
+      cost: "cost:\\s*\\$?([\\d.]+)"
+
+  - name: aider
+    command: "aider --message '{prompt}' --yes-always --no-git"
+    patterns:
+      tokens_in: "sent:\\s*([\\d,]+)"
+      tokens_out: "received:\\s*([\\d,]+)"
+      cost: "Cost:\\s*\\$([\\d.]+)"

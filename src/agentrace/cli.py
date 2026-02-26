@@ -197,5 +197,12 @@ def init(output: str):
     console.print(f"Edit it with your tasks and agents, then run: [bold]agentrace run[/bold]")
 
 
+@main.command()
+def history():
+    """List past benchmark runs."""
+    from agentrace.history import list_runs
+    list_runs(Path.cwd())
+
+
 if __name__ == "__main__":
     main()

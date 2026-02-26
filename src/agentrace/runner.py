@@ -18,6 +18,7 @@ from rich.console import Console
 
 from agentrace.agents.base import Agent
 from agentrace.config import AgentConfig, BenchConfig, TaskConfig
+from agentrace.history import save_run
 from agentrace.metrics import RunMetrics, TaskSummary, Timer
 from agentrace.reporter import print_header, print_task_result, print_summary
 from agentrace.sandbox import create_sandbox, cleanup_sandbox
@@ -142,6 +143,10 @@ def run_benchmark(config: BenchConfig, project_path: Path) -> list[RunMetrics]:
     # Build summaries (one per agent)
     summaries = _build_summaries(all_runs, agents)
     print_summary(summaries)
+
+    # Save run history
+    saved = save_run(project_path, config.project, all_runs, summaries)
+    console.print(f"\n  [dim]Results saved to {saved}[/dim]")
 
     return all_runs
 

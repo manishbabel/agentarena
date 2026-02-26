@@ -1,0 +1,41 @@
+# agentrace config — Python project with pytest
+# Usage: agentrace run --config examples/python-pytest.yaml
+
+project: my-python-app
+timeout: 120
+
+tasks:
+  - name: fix-type-error
+    prompt: "Fix the type error in src/auth/handlers.py reported by mypy"
+    validate: "mypy src/ --ignore-missing-imports"
+
+  - name: add-endpoint
+    prompt: "Add a GET /api/health endpoint that returns {'status': 'ok'} with a 200 response"
+    validate: "python -m pytest tests/test_api.py -v"
+    timeout: 180
+
+  - name: write-tests
+    prompt: "Write unit tests for src/services/payment.py achieving >80% line coverage"
+    validate: "python -m pytest tests/test_payment.py --cov=src/services/payment --cov-fail-under=80"
+
+  - name: fix-security
+    prompt: "Fix the SQL injection vulnerability in src/db/queries.py by using parameterized queries"
+    validate: "python -m pytest tests/test_db.py && bandit src/db/queries.py"
+
+agents:
+  - name: claude-code
+    command: "claude --print --max-turns 10 '{prompt}'"
+    patterns:
+      tokens_in: "input tokens:\\s*([\\d,]+)"
+      tokens_out: "output tokens:\\s*([\\d,]+)"
+      cost: "cost:\\s*\\$?([\\d.]+)"
+
+  - name: aider
+    command: "aider --message '{prompt}' --yes-always --no-git"
+    patterns:
+      tokens_in: "sent:\\s*([\\d,]+)"
+      tokens_out: "received:\\s*([\\d,]+)"
+      cost: "Cost:\\s*\\$([\\d.]+)"
+
+  - name: codex
+    command: "codex --quiet '{prompt}'"

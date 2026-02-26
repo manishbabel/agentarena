@@ -1,0 +1,38 @@
+# agentrace config — Go project
+# Usage: agentrace run --config examples/go.yaml
+
+project: my-go-service
+timeout: 120
+
+tasks:
+  - name: fix-compile
+    prompt: "Fix the compilation error in internal/handler/auth.go"
+    validate: "go build ./..."
+
+  - name: add-middleware
+    prompt: "Add a rate-limiting middleware to the HTTP server in internal/server/server.go. Limit to 100 requests per minute per IP."
+    validate: "go test ./internal/server/ -v -run TestRateLimit"
+    timeout: 180
+
+  - name: write-tests
+    prompt: "Write table-driven tests for the ParseConfig function in internal/config/config.go"
+    validate: "go test ./internal/config/ -v -cover -coverprofile=coverage.out && go tool cover -func=coverage.out | grep -q 'total.*80'"
+
+  - name: fix-race
+    prompt: "Fix the data race in internal/cache/cache.go detected by go race detector"
+    validate: "go test -race ./internal/cache/"
+
+agents:
+  - name: claude-code
+    command: "claude --print --max-turns 10 '{prompt}'"
+    patterns:
+      tokens_in: "input tokens:\\s*([\\d,]+)"
+      tokens_out: "output tokens:\\s*([\\d,]+)"
+      cost: "cost:\\s*\\$?([\\d.]+)"
+
+  - name: aider
+    command: "aider --message '{prompt}' --yes-always --no-git"
+    patterns:
+      tokens_in: "sent:\\s*([\\d,]+)"
+      tokens_out: "received:\\s*([\\d,]+)"
+      cost: "Cost:\\s*\\$([\\d.]+)"

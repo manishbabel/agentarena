@@ -2,10 +2,10 @@
 
 > Race your AI agents. Any agent, any task, your data.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/manishbabel/agentrace/actions/workflows/ci.yml/badge.svg)](https://github.com/manishbabel/agentrace/actions/workflows/ci.yml)
+[![PyPI version](https://img.shields.io/pypi/v/agentrace.svg)](https://pypi.org/project/agentrace/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-
-agentrace lets you benchmark and compare AI agents — coding agents, domain agents, digital workers — by running them on **your** tasks with **your** data. Measure what matters: pass/fail, time, cost, token usage, and LLM call counts.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ```
 $ agentrace run
@@ -30,12 +30,22 @@ $ agentrace run
  Winner: claude-code (highest pass rate, lowest cost)
 ```
 
-## Use Cases
+## Why agentrace?
 
-- **Pick the right tool** — Which AI coding agent works best on YOUR codebase?
-- **POC evaluations** — Give your manager hard numbers, not opinions
-- **Compare digital workers** — Any agent with a CLI or API, not just coding tools
-- **Prove your agent wins** — Agent builders: use agentrace results as proof
+Every company building AI is asking the same question: **which agent actually works best?**
+
+Today that answer is opinions, blog posts, and vibes. Your manager asks for a POC — you spend two weeks manually testing three tools and write a Google Doc that says "I think Claude was better."
+
+**agentrace gives you hard numbers in 30 minutes:**
+
+| Who you are | What you get |
+|---|---|
+| **Developer picking a tool** | Run agents on YOUR codebase, see which passes more tests, costs less, runs faster |
+| **Team doing a POC** | One command, one report — give your manager data, not opinions |
+| **Agent builder** | Prove your agent beats competitors with reproducible benchmarks |
+| **Company evaluating vendors** | Compare digital workers on your actual workload |
+
+Inspired by the [ActionEngine paper](https://arxiv.org/abs/2602.20502) which found **11.8x cost differences** and **5.67x token usage variance** between agent architectures on identical tasks. agentrace makes these differences visible on your own data.
 
 ## Install
 
@@ -51,7 +61,7 @@ pip install agentrace
 agentrace init
 ```
 
-**2. Define tasks and agents:**
+**2. Define your tasks and agents:**
 
 ```yaml
 project: my-app
@@ -69,9 +79,16 @@ tasks:
 agents:
   - name: claude-code
     command: "claude --print --max-turns 10 '{prompt}'"
+    patterns:                                          # optional: extract metrics
+      tokens_in: "input tokens:\\s*([\\d,]+)"
+      tokens_out: "output tokens:\\s*([\\d,]+)"
+      cost: "cost:\\s*\\$?([\\d.]+)"
 
   - name: aider
     command: "aider --message '{prompt}' --yes-always --no-git"
+
+  - name: my-custom-agent                              # any CLI tool works
+    command: "my-tool run '{prompt}'"
 ```
 
 **3. Run the race:**
@@ -82,38 +99,54 @@ agentrace run
 
 ## How It Works
 
-1. For each **task** x **agent** combination:
-   - Creates a clean **sandbox** (git worktree or temp directory)
-   - Runs the agent CLI with your prompt
-   - Runs your **validation command** (tests, typecheck, lint, scripts)
-   - Collects **metrics**: wall time, tokens, cost, LLM calls, pass/fail
-   - Cleans up the sandbox
+For each **task** x **agent** combination:
 
-2. Produces a **comparison table** showing which agent wins.
+1. Creates a clean **sandbox** (git worktree for code repos, temp directory for anything else)
+2. Runs the agent CLI with your prompt
+3. Runs your **validation command** (tests, typecheck, lint — anything with an exit code)
+4. Collects **metrics**: wall time, tokens, cost, LLM calls, pass/fail
+5. Cleans up the sandbox
 
 Works with **any project** — git repos, plain directories, any language, any domain.
 
-## CLI Usage
+## CLI
 
 ```bash
-agentrace run                          # Run all tasks x all agents
+agentrace run                          # Race all agents on all tasks
 agentrace run --task fix-type-error    # Run specific task
 agentrace run --agent claude-code      # Run specific agent
-agentrace run --json                   # Output as JSON
-agentrace run --csv                    # Output as CSV
-agentrace init                         # Generate sample bench.yaml
+agentrace run --json                   # Export as JSON
+agentrace run --csv                    # Export as CSV
+agentrace run --md                     # Export as Markdown
+agentrace init                         # Create starter bench.yaml
 agentrace history                      # List past runs
 ```
 
-## Adding Custom Agents
+## Metric Extraction
 
-Any tool with a CLI works. Just provide a command with a `{prompt}` placeholder:
+agentrace uses **regex patterns** defined in your config to extract metrics from agent output. No code changes needed for new agents:
 
 ```yaml
 agents:
   - name: my-agent
-    command: "my-tool --input '{prompt}' --auto"
+    command: "my-agent '{prompt}'"
+    patterns:
+      tokens_in: "Input:\\s*(\\d+) tokens"        # regex with one capture group
+      tokens_out: "Output:\\s*(\\d+) tokens"
+      cost: "Total:\\s*\\$([\\d.]+)"
+      llm_calls: "(\\d+) API calls"
 ```
+
+No patterns? agentrace still measures **wall time** and **pass/fail** — works for any tool.
+
+## Examples
+
+See [`examples/`](examples/) for ready-to-use configs:
+
+- [`python-pytest.yaml`](examples/python-pytest.yaml) — Python with pytest, mypy, bandit
+- [`node-typescript.yaml`](examples/node-typescript.yaml) — TypeScript with tsc, jest, ESLint
+- [`react-nextjs.yaml`](examples/react-nextjs.yaml) — Next.js with vitest
+- [`go.yaml`](examples/go.yaml) — Go with go test, race detector
 
 ## Contributing
 

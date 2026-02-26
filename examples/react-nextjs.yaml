@@ -1,0 +1,34 @@
+# agentrace config — React / Next.js project
+# Usage: agentrace run --config examples/react-nextjs.yaml
+
+project: my-nextjs-app
+timeout: 150
+
+tasks:
+  - name: fix-build
+    prompt: "Fix the Next.js build error — the app fails on 'next build' due to a missing import"
+    validate: "npx next build"
+    timeout: 300
+
+  - name: add-dark-mode
+    prompt: "Add a dark mode toggle to the Navbar component in src/components/Navbar.tsx using next-themes"
+    validate: "npx vitest run tests/components/Navbar.test.tsx"
+
+  - name: add-loading-state
+    prompt: "Add a loading skeleton to src/app/dashboard/page.tsx while data is being fetched"
+    validate: "npx tsc --noEmit && npx vitest run tests/dashboard/"
+
+  - name: fix-accessibility
+    prompt: "Fix accessibility issues in src/components/LoginForm.tsx — add aria labels, proper focus management, and keyboard navigation"
+    validate: "npx vitest run tests/components/LoginForm.test.tsx"
+
+agents:
+  - name: claude-code
+    command: "claude --print --max-turns 10 '{prompt}'"
+    patterns:
+      tokens_in: "input tokens:\\s*([\\d,]+)"
+      tokens_out: "output tokens:\\s*([\\d,]+)"
+      cost: "cost:\\s*\\$?([\\d.]+)"
+
+  - name: cursor
+    command: "cursor --cli '{prompt}'"
